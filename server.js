@@ -10,11 +10,7 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
 
-pool.connect(function (err) {
-	if (err) throw err;
 
-	console.log("Connected with pg ...")
-})
 
 app.use('/',routes)
 

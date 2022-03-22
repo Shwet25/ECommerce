@@ -1,52 +1,74 @@
 
 const { rows } = require("pg/lib/defaults");
-const pool = require("../database/db")
-const logger = require('../logger')
+const execute = require("../database/db")
+const Userlogger = require('../Helpers/logger')
 
-class Controller{
-    static async register(req , res){
+class Controller {
+    static async register(req, res) {
 
         try {
-            let {username,password,userrole}=req.body;
+            let { user_id, user_email, password, userrole } = req.body;
 
-            const query = `INSERT INTO users VALUES ('${username}','${password}','${userrole}')`
-            const find = await pool.query(query)
+            if (password.length > 8 && password != null) {
 
-            if (find.rowCount>0) {
+                let result = await execute(`SELECT * FROM users WHERE user_email='${user_email}'`)
 
-                logger.Userlogger.log('info','User Added..')
+               console.log(result) 
 
-                res.status(200).json({
-                    "payload": [
-                        {
-                            "Message": "User Added"
-                        }
-                    ],
-                    "errors": [],
-                    "success": true
+                if (result > 0) {
 
-                })
+                    Userlogger.error('user_email already registered plz try with different user_email')
 
+                    res.status(409).json({
+                        "payload": [
+                            {
+                                "Message": "user_email already registered plz try with different user_email"
+                            }
+                        ],
+                        "errors": [],
+                        "success": false
+                    })
+
+
+                } else {
+
+                    const result = await execute(`INSERT INTO users VALUES ('${user_id}','${user_email}','${password}','${userrole}')`)
+
+                    res.status(200).json({
+                        "payload": [
+                            {
+                                "Message": "User Added"
+                            }
+                        ],
+                        "errors": [],
+                        "success": true
+
+                    })
+
+
+                }
             } else {
-               // logger.Userlogger.log('error','Invalid credential')
+
+                Userlogger.error('Password Invalid')
 
                 res.status(403).json({
                     "payload": [
                         {
-                            "Message": "Invalid credential"
+                            "Message": "password is invalid"
                         }
                     ],
                     "errors": [],
                     "success": false
                 });
             }
-                                               
-        } catch (error) {
-            //logger.Userlogger.log('error','Password Invalid')
 
-        
+
         }
-    } 
+        catch (e) {
+            Userlogger.error('Error Occurred While Register')
+            console.log(e)
+        }
+    }
 
 }
-module.exports= Controller;
+module.exports = Controller;
