@@ -12,13 +12,13 @@ const pool = new Pool({
     idle_transaction_timeout: 300,
     max_client_conn: 10
 })
-async function execute(result) {
+async function execute(QueryText) {
     const client = await pool.connect()
     try {
 
         await client.query("COMMIT")
 
-        const res = await client.query(result);
+        const res = await client.query(QueryText);
 
         await client.query("COMMIT")
 

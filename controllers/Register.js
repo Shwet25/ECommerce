@@ -30,7 +30,7 @@ class Controller {
 
                 } else {
 
-                    const result = await execute(`INSERT INTO users VALUES ('${user_id}','${user_email}','${password}','${userrole}')`)
+                    await execute(`INSERT INTO users VALUES ('${user_id}','${user_email}','${password}','${userrole}')`)
 
                     res.status(200).json({
                         "payload": [
@@ -64,7 +64,7 @@ class Controller {
         }
         catch (e) {
             Userlogger.error('Error Occurred While Register')
-            console.log(e)
+    
         }
     }
 
