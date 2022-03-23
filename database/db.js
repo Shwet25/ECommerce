@@ -35,8 +35,8 @@ async function execute(result) {
 }
 pool.connect(function (err) {
 	if (err) throw err;
-    console.log(err)
+    
 	console.log("Connected with pg ...")
 })
 
-module.exports = {execute , pool};
+module.exports = execute ;

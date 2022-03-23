@@ -11,11 +11,9 @@ class Controller {
 
             if (password.length > 8 && password != null) {
 
-                let result = await execute(`SELECT * FROM users WHERE user_email='${user_email}'`)
+            const result = await execute(`SELECT * FROM users WHERE user_email='${user_email}'`)
 
-               console.log(result) 
-
-                if (result > 0) {
+                if (result.rowCount > 0) {
 
                     Userlogger.error('user_email already registered plz try with different user_email')
 
