@@ -1,20 +1,20 @@
-//const { loggers} = require("winston");
-//const winston = require("winston");
+const winston = require("winston");
 const pool = require("../db/database");
-const { log } = require("../helpers/logger");
 const Router = require("../routes");
-
+const user = require("../helpers/logger");
+const execute = require("../db/database");
 
 
 
 class Login {
     static async Login(req, res) {
         const { username,password,userrole} = req.body;
-        const query1 = `SELECT * FROM users WHERE username='${username}'`
-        const find = await pool.query(query1);
-
-        if (find.rowCount == 0) {
-            //loggers.error('user does not exists','inavlid details')
+       
+       const result =  await execute(`SELECT * FROM users WHERE username='${username}'`)
+        
+        
+        if (result.rowCount == 0) {
+            user.error('invalid details')
             res.status(409).json({
                 "payload": [
                     {
@@ -28,10 +28,8 @@ class Login {
 
         }
         else {
-            const query = `SELECT * FROM users where username='${username}' and Password='${password}'`
-             await pool.query(query);
-
-           //loggers.error('info','succesfully Login ')
+            await execute(`SELECT * FROM users where username='${username}' and Password='${password}'`)
+             
 
             res.status(200).json({
                 "payload": [
@@ -48,7 +46,7 @@ class Login {
         res.send({
             message:'error'
         })
-      //loggers.error('user does not exists','inavlid details')
+      user.error('invalid details')
     }
 
 }
