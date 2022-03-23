@@ -9,7 +9,7 @@ const { createLogger, format, transports } = require('winston');
              level :'error',
              format : format.combine(format.timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),format.json())
 
-         })
+         }) 
      ]
  })
 
