@@ -1,18 +1,17 @@
 const winston = require("winston");
-const pool = require("../db/database");
-const Router = require("../routes");
 const user = require("../helpers/logger");
 const execute = require("../db/database");
 
 
 
 class Login {
-    static async Login(req, res) {
-        const { username,password,userrole} = req.body;
-       
-       const result =  await execute(`SELECT * FROM users WHERE username='${username}'`)
-        
-        
+    static async login(req, res) {
+
+        const { user_email, password } = req.body;
+
+        const result = await execute(`SELECT * FROM users WHERE user_email='${user_email}'`)
+
+
         if (result.rowCount == 0) {
             user.error('invalid details')
             res.status(409).json({
@@ -24,12 +23,12 @@ class Login {
                 "errors": [],
                 "success": false
             });
-           
+
 
         }
         else {
-            await execute(`SELECT * FROM users where username='${username}' and Password='${password}'`)
-             
+            await execute(`SELECT * FROM users where user_email='${user_email}' and Password='${password}'`)
+
 
             res.status(200).json({
                 "payload": [
@@ -42,11 +41,11 @@ class Login {
             });
         }
 
-    } catch (error) {
+    } catch(error) {
         res.send({
-            message:'error'
+            message: 'error'
         })
-      user.error('invalid details')
+        user.error('invalid details')
     }
 
 }
