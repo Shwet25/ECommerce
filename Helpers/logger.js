@@ -1,7 +1,7 @@
 const { createLogger, format, transports } = require('winston');
 
 
- const Userlogger = createLogger({
+ const Userlogger = createLogger({ 
      transports:[
          
          new transports.File({

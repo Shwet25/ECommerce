@@ -3,9 +3,9 @@ const { rows } = require("pg/lib/defaults");
 const execute = require("../database/db")
 const Userlogger = require('../Helpers/logger')
 
-class Controller {
+class Controller { 
     static async register(req, res) {
-
+ 
         try {
             let { user_id, user_email, password, userrole } = req.body;
 

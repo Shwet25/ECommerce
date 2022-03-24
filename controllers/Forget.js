@@ -30,8 +30,6 @@ class Forget {
 
             } else {
 
-
-
                 const query1 = `update users set password='${new_password}' 
                                   WHERE user_email='${user_email}'`
 
@@ -47,14 +45,14 @@ class Forget {
                     ],
                     "errors": [],
                     "success": true
-                });
+                }); 
 
 
             }
 
         } catch (error) {
-            console.log(error)
-            logger.error('Employee does not exist')
+            
+            logger.error("Invalid Credential")
 
         }
 

@@ -1,5 +1,5 @@
 const express = require('express');
-const pool = require('./database/db');
+const pool = require('./database/db'); 
 
 const  routes = require('./routes/index')
 
