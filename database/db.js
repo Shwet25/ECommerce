@@ -17,7 +17,7 @@ async function execute(QueryText) {
     const client = await pool.connect()
     try {
 
-        await client.query("COMMIT")
+        await client.query("BEGIN")
 
         const res = await client.query(QueryText);
 

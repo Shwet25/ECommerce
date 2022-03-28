@@ -6,20 +6,20 @@ class Controller {
     static async register(req, res) {
  
         try {
-            let { user_id, user_email, password, userrole } = req.body;
+            let { userid, useremail, password, userrole } = req.body;
 
-            if (password.length > 8 && password != null) {
+            if (password != null && password.length > 8) {
 
-            const result = await execute(`SELECT * FROM users WHERE user_email='${user_email}'`)
+            const result = await execute(`SELECT * FROM users WHERE UserEmail='${useremail}'`)
 
                 if (result.rowCount > 0) {
 
-                    Userlogger.error('user_email already registered plz try with different user_email')
+                    Userlogger.error('user already registered please try with different email')
 
                     res.status(409).json({
                         "payload": [
                             {
-                                "Message": "user_email already registered plz try with different user_email"
+                                "Message": "user already registered please try with different email"
                             }
                         ],
                         "errors": [],
@@ -29,7 +29,7 @@ class Controller {
 
                 } else {
 
-                    await execute(`INSERT INTO users VALUES ('${user_id}','${user_email}','${password}','${userrole}')`)
+                    await execute(`INSERT INTO users VALUES ('${userid}','${useremail}','${password}','${userrole}')`)
 
                     res.status(200).json({
                         "payload": [

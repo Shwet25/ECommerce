@@ -7,9 +7,9 @@ class Forget {
 
         try {
 
-            let { user_email, new_password } = req.body;
+            let { useremail, newpassword } = req.body;
 
-            const query = `SELECT * FROM users WHERE user_email='${user_email}'`
+            const query = `SELECT * FROM users WHERE useremail='${useremail}'`
             const result = await execute(query)
 
             if (result.rowCount == 0) {
@@ -29,8 +29,8 @@ class Forget {
 
             } else {
 
-                const query1 = `update users set password='${new_password}' 
-                                  WHERE user_email='${user_email}'`
+                const query1 = `update users set password='${newpassword}' 
+                                  WHERE useremail='${useremail}'`
 
                 await execute(query1)
 
