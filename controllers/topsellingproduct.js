@@ -1,12 +1,13 @@
-const pool = require("../db/database");
+const execute = require("../database/db");
+
 
  class Topselling{
     static async selling(req, res){
         try {
 
-            const query1 ="select * from products where ratings >= 3.5 ";
+            const query ="select * from products where ratings >= 3.5 ";
 
-            const result = await pool.query(query1);
+            const result = await execute(query);
 
             console.log(result)
            // const find = result.values(result)

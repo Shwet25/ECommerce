@@ -1,14 +1,12 @@
-// change the database name in db
+const execute = require("../database/db");
 
-const pool = require("../db/database");
-
- class Newarrival{
+class Newarrival{
     static async arrival(req, res){
         try {
 
-            const query1 ="select * from products where createdat < NOW() - INTERVAL '24 HOURS' ";
+            const query ="select * from products where createdat < NOW() - INTERVAL '24 HOURS' ";
 
-            const result = await pool.query(query1);
+            const result = await execute(query);
 
             console.log(result)
             if(result.rowCount> 0){
