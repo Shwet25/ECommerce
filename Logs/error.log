@@ -19,3 +19,74 @@
 {"level":"error","message":"user does not exist","timestamp":"2022-04-05 11:43:22"}
 {"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 11:43:22"}
 {"level":"error","message":"user does not exist","timestamp":"2022-04-05 11:44:24"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 12:57:05"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 13:03:42"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 13:35:03"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 13:39:46"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 13:40:52"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 13:41:28"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 13:41:59"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 13:42:51"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 13:42:57"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 15:24:56"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 15:25:29"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 15:26:49"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 15:27:29"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 15:30:27"}
+{"level":"error","message":"user does not exist","timestamp":"2022-04-05 15:32:06"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 15:32:06"}
+{"level":"error","message":"user does not exist","timestamp":"2022-04-05 15:32:40"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 15:32:40"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 15:35:02"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 15:40:10"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 17:34:27"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 17:35:23"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 17:36:47"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 17:38:12"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 17:38:49"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 17:39:11"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 17:39:55"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 17:41:57"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 17:42:54"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 17:49:35"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 18:40:42"}
+{"level":"error","message":"user does not exist","timestamp":"2022-04-05 18:41:54"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 18:41:54"}
+{"level":"error","message":"user does not exist","timestamp":"2022-04-05 18:42:38"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 18:42:38"}
+{"level":"error","message":"user does not exist","timestamp":"2022-04-05 18:45:13"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 18:45:13"}
+{"level":"error","message":"user does not exist","timestamp":"2022-04-05 18:45:53"}
+{"level":"error","message":"Invalid Credential","timestamp":"2022-04-05 18:45:53"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 18:47:41"}
+{"level":"error","message":"user already registered please try with different email","timestamp":"2022-04-05 18:48:45"}
+{"level":"error","message":"Error Occurred While Register","timestamp":"2022-04-05 18:48:45"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 18:50:05"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 19:00:35"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 19:00:35"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 19:02:12"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 19:02:12"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 19:04:20"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 19:04:20"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 19:04:38"}
+{"level":"error","message":"invalid details","timestamp":"2022-04-05 19:04:38"}
+{"level":"error","message":"user already registered please try with different email","timestamp":"2022-04-05 19:12:44"}
+{"level":"error","message":"Error Occurred While Register","timestamp":"2022-04-05 19:12:44"}
+{"level":"error","message":"Password Invalid","timestamp":"2022-04-05 19:13:00"}
+{"level":"error","message":"Error Occurred While Register","timestamp":"2022-04-05 19:13:00"}
+{"level":"error","message":"Password Invalid","timestamp":"2022-04-05 19:16:10"}
+{"level":"error","message":"Error Occurred While Register","timestamp":"2022-04-05 19:16:10"}
+{"level":"error","message":"Password Invalid","timestamp":"2022-04-05 19:19:05"}
+{"level":"error","message":"Error Occurred While Register","timestamp":"2022-04-05 19:19:05"}
+{"level":"error","message":"Password Invalid","timestamp":"2022-04-05 19:19:59"}
+{"level":"error","message":"Error Occurred While Register","timestamp":"2022-04-05 19:19:59"}
+{"level":"error","message":"Password Invalid","timestamp":"2022-04-05 19:20:03"}
+{"level":"error","message":"Error Occurred While Register","timestamp":"2022-04-05 19:20:03"}
+{"level":"error","message":"Password Invalid","timestamp":"2022-04-05 19:20:05"}
+{"level":"error","message":"Error Occurred While Register","timestamp":"2022-04-05 19:20:05"}
+{"level":"error","message":"Password Invalid","timestamp":"2022-04-05 19:20:05"}
+{"level":"error","message":"Error Occurred While Register","timestamp":"2022-04-05 19:20:05"}
+{"level":"error","message":"Password Invalid","timestamp":"2022-04-05 19:20:06"}
+{"level":"error","message":"Error Occurred While Register","timestamp":"2022-04-05 19:20:06"}
+{"level":"error","message":"Password Invalid","timestamp":"2022-04-05 19:20:23"}
+{"level":"error","message":"Error Occurred While Register","timestamp":"2022-04-05 19:20:23"}

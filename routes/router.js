@@ -1,4 +1,5 @@
 const express = require('express');
+const Carousel = require('../controllers/carouselproduct');
 const  Forget  = require('../controllers/forgetpassword');
 const Login = require('../controllers/loginuser');
 const Newarrival = require('../controllers/newarrivalproduct');
@@ -16,6 +17,7 @@ router.post("/login",Login.login);
 router.put("/forget",Forget.forget);
 router.get("/topselling",Topselling.selling);
 router.get("/newarrival",Newarrival.arrival);
+router.get("/carousel",Carousel.carousel)
 
 
 module.exports = router;

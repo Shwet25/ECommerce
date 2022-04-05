@@ -3,11 +3,11 @@ const Apperror = require("../Helpers/error");
 const Userlogger = require("../Helpers/logger");
 
 
-class Topselling {
-    static async selling(req, res, next) {
+class Carousel{
+    static async carousel(req, res, next) {
         try {
 
-            const query = "select * from products where ratings >= 3.5 ";
+            const query = "select * from products ORDER BY RANDOM() LIMIT 5 ";
 
             const result = await execute(query);
 
@@ -34,17 +34,17 @@ class Topselling {
             } else {
                 Userlogger.error("Can't find products where rating is greater than or equal to 3.5");
 
-                throw new Apperror("Can't find products where rating is greater than or equal to 3.5",404);
+                //throw new Apperror("Can't find products where rating is greater than or equal to 3.5",404);
 
-                // res.status(404).json({
-                //     "payload": [
-                //         {
-                //             "Message": "Can't find products where ratings is greter than or equal to 3.5"
-                //         }
-                //     ],
-                //     "errors": [],
-                //     "success": false
-                // });
+                res.status(404).json({
+                    "payload": [
+                        {
+                            "Message": "Somethng wrong"
+                        }
+                    ],
+                    "errors": [],
+                    "success": false
+                });
             }
         } catch (error) {
             Userlogger.error("Can't find products");
@@ -54,4 +54,4 @@ class Topselling {
     }
 }
 
-module.exports = Topselling;
+module.exports = Carousel;

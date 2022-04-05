@@ -1,9 +1,9 @@
 const execute = require("../database/db");
+const UserNotFound = require("../Helpers/error");
 const Userlogger = require('../Helpers/logger');
 
-
 class Forget {
-    static async forget(req, res) {
+    static async forget(req, res,next) {
 
         try {
 
@@ -13,18 +13,20 @@ class Forget {
             const result = await execute(query);
 
             if (result.rowCount == 0) {
-
+                
                 Userlogger.error('user does not exist');
 
-                res.status(404).json({
-                    "payload": [
-                        {
-                            "Message": "User Not Found"
-                        }
-                    ],
-                    "errors": [],
-                    "success": false
-                });
+                throw new UserNotFound();
+
+                // res.status(404).json({
+                //     "payload": [
+                //         {
+                //             "Message": "User Not Found"
+                //         }
+                //     ],
+                //     "errors": [],
+                //     "success": false
+                // });
 
 
             } else {
@@ -47,7 +49,7 @@ class Forget {
             }
 
         } catch (error) {
-            
+            next(error)
             Userlogger.error("Invalid Credential")
 
         }
