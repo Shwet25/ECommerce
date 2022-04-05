@@ -1,7 +1,7 @@
 const winston = require("winston");
 const execute = require("../db/database");
 
-const user = require("../helpers/logger");
+const user = require("../helpers/log");
 
 class Forgot {
     static async forgot(req, res) {

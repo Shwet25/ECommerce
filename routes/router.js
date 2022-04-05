@@ -1,13 +1,17 @@
 const express = require('express');
-const Login = require('../controller/Login');
-const Forgot= require('../controller/Forgot');
-const  topselling  = require('../controller/topselling');
-const  newarrival = require('../controller/newarrival');
+const register = require('../controller/registeruser')
+const Login = require('../controller/loginuser');
+const Forgot= require('../controller/forgotpassword');
+const  topselling  = require('../controller/topsellingproduct');
+const  newarrival = require('../controller/newarrivalproduct');
+const Carousel = require("../controller/carouselproduct");
 const router = express.Router();
 
-
+router.post("/register",register.register);
 router.post("/login",Login.login);
 router.put("/forgot",Forgot.forgot);
 router.get("/topselling",topselling.topselling);
 router.get("/newarrival",newarrival.newarrival);
+router.get("/carousel",Carousel.carousel);
+
 module.exports = router;

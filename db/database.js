@@ -11,7 +11,7 @@ const pool = new Pool({
   idle_transaction_timeout: '300',
   max_client_conn: '10'
   
-})
+});
 
 
 async function execute(querytext) {

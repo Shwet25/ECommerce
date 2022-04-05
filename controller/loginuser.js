@@ -1,6 +1,7 @@
 const winston = require("winston");
-const user = require("../helpers/logger");
+const user = require("../helpers/log");
 const execute = require("../db/database");
+const usernotfound = require("../helpers/error");
 
 
 
@@ -14,6 +15,7 @@ class Login {
 
         if (result.rowCount == 0) {
             user.error('invalid details')
+             throw new usernotfound("invalid credential",404)
             res.status(409).json({
                 "payload": [
                     {
@@ -46,6 +48,7 @@ class Login {
             message: 'error'
         })
         user.error('invalid details')
+        throw new usernotfound("invalid credential",404)
     }
 
 }

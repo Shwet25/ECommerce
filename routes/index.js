@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router();
 
-const routes = require('./router')
-const update = require("../controller/Forgot");
-const topselling = require('../controller/topselling');
-const  newarrival = require('../controller/newarrival');
+const routes = require('./router');
+// const register = require("../controller/registeruser");
+// const update = require("../controller/forgotpassword");
+// const topselling = require('../controller/topsellingproduct');
+// const  newarrival = require('../controller/newarrivalproduct');
+// const carsouel = require("../controller/carsouelproduct");
 
 
 
