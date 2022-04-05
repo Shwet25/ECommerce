@@ -1,5 +1,5 @@
 const execute = require("../database/db");
-const logger = require('../Helpers/logger')
+const Userlogger = require('../Helpers/logger');
 
 
 class Forget {
@@ -9,12 +9,12 @@ class Forget {
 
             let { useremail, newpassword } = req.body;
 
-            const query = `SELECT * FROM users WHERE useremail='${useremail}'`
-            const result = await execute(query)
+            const query = `SELECT * FROM users WHERE useremail='${useremail}'`;
+            const result = await execute(query);
 
             if (result.rowCount == 0) {
 
-                logger.error('user does not exist')
+                Userlogger.error('user does not exist');
 
                 res.status(404).json({
                     "payload": [
@@ -29,12 +29,9 @@ class Forget {
 
             } else {
 
-                const query1 = `update users set password='${newpassword}' 
-                                  WHERE useremail='${useremail}'`
+                const query1 = `update users set password='${newpassword}' WHERE useremail='${useremail}'`
 
                 await execute(query1)
-
-
 
                 res.status(200).json({
                     "payload": [
@@ -51,7 +48,7 @@ class Forget {
 
         } catch (error) {
             
-            logger.error("Invalid Credential")
+            Userlogger.error("Invalid Credential")
 
         }
 

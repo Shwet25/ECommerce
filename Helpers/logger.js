@@ -5,7 +5,7 @@ const { createLogger, format, transports } = require('winston');
      transports:[
          
          new transports.File({
-             filename:'Logger/error.log',
+             filename:'Logs/error.log',
              level :'error',
              format : format.combine(format.timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),format.json())
 
