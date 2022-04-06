@@ -1,5 +1,5 @@
 const execute = require("../database/db");
-const Apperror = require("../Helpers/error");
+const { ProductNotFound } = require("../Helpers/error");
 const Userlogger = require("../Helpers/logger");
 
 class Newarrival {
@@ -31,19 +31,20 @@ class Newarrival {
                 })
             } else {
 
-                Userlogger.error("Can't find new products");
+                const prod = new ProductNotFound();
+                
+                Userlogger.error(prod.message);
 
-                throw new Apperror("Can't find new products",409);
 
-                // res.status(404).json({
-                //     "payload": [
-                //         {
-                //             "Message": "Can't find new products"
-                //         }
-                //     ],
-                //     "errors": [],
-                //     "success": false
-                // })
+                res.status(404).json({
+                    "payload": [
+                        {
+                            "Message": prod.message
+                        }
+                    ],
+                    "errors": [],
+                    "success": false
+                })
             }
 
 

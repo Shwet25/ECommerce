@@ -1,9 +1,9 @@
 const execute = require("../database/db");
-const Apperror = require("../Helpers/error");
+const { ProductNotFound } = require("../Helpers/error");
 const Userlogger = require("../Helpers/logger");
 
 
-class Carousel{
+class Carousel {
     static async carousel(req, res, next) {
         try {
 
@@ -32,14 +32,13 @@ class Carousel{
                 });
 
             } else {
-                Userlogger.error("Can't find products where rating is greater than or equal to 3.5");
+                const product = new ProductNotFound();
 
-                //throw new Apperror("Can't find products where rating is greater than or equal to 3.5",404);
-
+                Userlogger.error(product.message);
                 res.status(404).json({
                     "payload": [
                         {
-                            "Message": "Somethng wrong"
+                            "Message": product.message
                         }
                     ],
                     "errors": [],

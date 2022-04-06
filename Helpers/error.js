@@ -1,5 +1,5 @@
 class UserNotFound extends Error {
-    constructor(message = "User Does Not Found try with register email") {
+    constructor(message = "User Not Found. Please try with different email id ") {
         super(message);
         this.isOprational = true;
 
@@ -7,8 +7,27 @@ class UserNotFound extends Error {
     }
 }
 
-class InvalidPassword extends Error{
-    constructor(message = "Invalid Password try with valid password") {
+
+class PrimaryKeyViolation extends Error {
+    constructor(message = "Primary Key Violation. Please try with another email id as this email id already has an account") {
+        super(message);
+        this.isOprational = true;
+
+        Error.captureStackTrace(this, this.constructor);
+    }
+}
+
+class Primery extends Error {
+    constructor(message = "User Not Found. Please try with different email id ") {
+        super(message);
+        this.isOprational = true;
+
+        Error.captureStackTrace(this, this.constructor);
+    }
+}
+
+class InvalidPassword extends Error {
+    constructor(message = "Invalid Password. Please enter a valid password") {
         super(message);
         this.isOprational = true;
 
@@ -16,12 +35,15 @@ class InvalidPassword extends Error{
     }
 
 }
-module.exports = UserNotFound,InvalidPassword ;
+class ProductNotFound extends Error {
+    constructor(message = "Product Not Found. Please try Again") {
+        super(message);
+        this.isOperational = true;
 
+        Error.captureStackTrace(this, this.constructor);
+    }
 
-// export class PrimaryKeyViolation extends Error {
-//     constructor(message = "Primary Key Violation. Please try with another email id as this email id already has an account") {
-//       super(message);
-//       Object.setPrototypeOf(this, PrimaryKeyViolation.prototype)
-//     }
-//   }
+}
+
+module.exports = { UserNotFound, PrimaryKeyViolation, InvalidPassword, ProductNotFound };
+

@@ -1,6 +1,6 @@
 
 const execute = require("../database/db");
-const UserNotFound = require("../Helpers/error");
+const { UserNotFound }= require("../Helpers/error");
 const Userlogger = require("../helpers/logger");
 
 class Login {
@@ -11,20 +11,20 @@ class Login {
             const result = await execute(`SELECT * FROM users WHERE useremail='${useremail}'`);
     
             if (result.rowCount == 0) {
+        
+               const user =  new UserNotFound
+               
+               Userlogger.error(user.message);
     
-                Userlogger.error('invalid details');
-    
-               throw new UserNotFound();
-    
-                // res.status(409).json({
-                //     "payload": [
-                //         {
-                //             "Message": "user does not exists please try with different email"
-                //         }
-                //     ],
-                //     "errors": [],
-                //     "success": false
-                // });
+                res.status(409).json({
+                    "payload": [
+                        {
+                            "Message": user.message
+                        }
+                    ],
+                    "errors": [],
+                    "success": false
+                });
     
             }
             else {

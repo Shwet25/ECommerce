@@ -1,5 +1,5 @@
 const execute = require("../database/db");
-const UserNotFound = require("../Helpers/error");
+const { UserNotFound }= require("../Helpers/error");
 const Userlogger = require('../Helpers/logger');
 
 class Forget {
@@ -13,20 +13,21 @@ class Forget {
             const result = await execute(query);
 
             if (result.rowCount == 0) {
-                
-                Userlogger.error('user does not exist');
+              
+                const user =  new UserNotFound;
+                  
+                Userlogger.error(user.message);
 
-                throw new UserNotFound();
 
-                // res.status(404).json({
-                //     "payload": [
-                //         {
-                //             "Message": "User Not Found"
-                //         }
-                //     ],
-                //     "errors": [],
-                //     "success": false
-                // });
+                res.status(404).json({
+                    "payload": [
+                        {
+                            "Message": user.message
+                        }
+                    ],
+                    "errors": [],
+                    "success": false
+                });
 
 
             } else {

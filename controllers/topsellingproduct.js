@@ -1,5 +1,5 @@
 const execute = require("../database/db");
-const Apperror = require("../Helpers/error");
+const { ProductNotFound }= require("../Helpers/error");
 const Userlogger = require("../Helpers/logger");
 
 
@@ -32,19 +32,20 @@ class Topselling {
                 });
 
             } else {
-                Userlogger.error("Can't find products where rating is greater than or equal to 3.5");
+              
+            const prod = new ProductNotFound();
 
-                throw new Apperror("Can't find products where rating is greater than or equal to 3.5",404);
+                Userlogger.error(prod.message);
 
-                // res.status(404).json({
-                //     "payload": [
-                //         {
-                //             "Message": "Can't find products where ratings is greter than or equal to 3.5"
-                //         }
-                //     ],
-                //     "errors": [],
-                //     "success": false
-                // });
+                res.status(404).json({
+                    "payload": [
+                        {
+                            "Message": prod.message
+                        }
+                    ],
+                    "errors": [],
+                    "success": false
+                });
             }
         } catch (error) {
             Userlogger.error("Can't find products");
