@@ -1,7 +1,9 @@
 const winston = require("winston");
 const execute = require("../db/database");
+const { UserNotFound } = require("../helpers/error");
 
-const user = require("../helpers/log");
+const User = require("../helpers/log");
+
 
 class Forgot {
     static async forgot(req, res) {
@@ -14,8 +16,19 @@ class Forgot {
             const result = await execute(`SELECT * FROM users WHERE user_email='${user_email}'`)
 
             if (result.rowCount == 0) {
-                user.error('invalid details')
-                res.send("user not found")
+                const user =  new UserNotFound;
+                  
+                User.error(user.message);
+                res.status(404).json({
+                    "payload": [
+                        {
+                            "Message": user.message
+                        }
+                    ],
+                    "errors": [],
+                    "success": false
+                });
+
             } else {
 
 
@@ -41,7 +54,7 @@ class Forgot {
 
         catch (error) {
             console.log(error)
-            user.error('invalid details')
+            User.error('invalid details')
         }
 
     }

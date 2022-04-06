@@ -1,7 +1,8 @@
 const winston = require("winston");
-const user = require("../helpers/log");
+const User = require("../helpers/log");
 const pool = require("../db/database");
 const execute = require("../db/database");
+const { ProductNotFound } = require("../helpers/error");
 
 
 class newarrival {
@@ -33,22 +34,27 @@ class newarrival {
     
                     })
                 }else{
-                    user.error('invalid details')
+                    const prod = new ProductNotFound();
+                
+                    User.error(prod.message);
+    
+    
                     res.status(404).json({
                         "payload": [
                             {
-                                "Message": "no new arrival in last 24 hours"
+                                "Message": prod.message
                             }
                         ],
                         "errors": [],
                         "success": false
-                    })
+                    });
+            
                 }
     
                 
             } catch (error) {
                 console.log(error)
-                user.error('invalid details')
+                User.error("can't find products");
 
             }
     

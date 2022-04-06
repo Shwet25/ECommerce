@@ -1,7 +1,8 @@
 const winston = require("winston");
-const user = require("../helpers/log");
+const User = require("../helpers/log");
 const execute = require("../db/database");
-const usernotfound = require("../helpers/error");
+const { UserNotFound } = require("../helpers/error");
+
 
 
 
@@ -14,17 +15,20 @@ class Login {
 
 
         if (result.rowCount == 0) {
-            user.error('invalid details')
-             throw new usernotfound("invalid credential",404)
-            res.status(409).json({
-                "payload": [
-                    {
-                        "Message": "username does not exists please try with different username"
-                    }
-                ],
-                "errors": [],
-                "success": false
-            });
+            User.error('invalid details')
+            const user =  new UserNotFound
+               
+               Userlogger.error(user.message);
+    
+                res.status(409).json({
+                    "payload": [
+                        {
+                            "Message": user.message
+                        }
+                    ],
+                    "errors": [],
+                    "success": false
+                });
 
 
         }
@@ -47,8 +51,8 @@ class Login {
         res.send({
             message: 'error'
         })
-        user.error('invalid details')
-        throw new usernotfound("invalid credential",404)
+        User.error('user not registered plz try with diiferent Email')
+        
     }
 
 }

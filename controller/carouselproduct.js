@@ -1,5 +1,8 @@
 
 const execute = require("../db/database");
+const { ProductNotFound } = require("../helpers/error");
+const winston = require("winston");
+const User = require("../helpers/log");
 
 
 class Carousel{
@@ -31,22 +34,24 @@ class Carousel{
     
                     })
                 }else{
-                    user.error('product display')
-                    res.status(404).json({
-                        "payload": [
-                            {
-                                "Message": "product display"
-                            }
-                        ],
-                        "errors": [],
-                        "success": false
-                    })
+                    
+                User.error(product.message);
+                res.status(404).json({
+                    "payload": [
+                        {
+                            "Message": product.message
+                        }
+                    ],
+                    "errors": [],
+                    "success": false
+                });
+            
                 }
     
                 
             } catch (error) {
                 console.log(error)
-                user.error('invalid details')
+                User.error("can't find products");
 
             }
     

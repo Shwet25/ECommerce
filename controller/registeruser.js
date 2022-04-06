@@ -1,13 +1,15 @@
 const winston = require("winston");
-const user = require("../helpers/log");
+const User = require("../helpers/log");
 const execute = require("../db/database");
+const { PrimaryKeyViolation } = require("../helpers/error");
+
 class register { 
     static async register(req, res) {
  
         try {
             let { user_id, user_email, password, userrole } = req.body;
 
-            if (password != null && password.length > 8) {
+            if ( password.length > 8) {
 
             const result = await execute(`SELECT * FROM users WHERE user_email='${user_email}'`)
 
@@ -15,16 +17,19 @@ class register {
 
                     user.error('user already registered please try with different email')
 
+                    const user = new PrimaryKeyViolation();
+
+                    User.error(user.message);
+
                     res.status(409).json({
                         "payload": [
                             {
-                                "Message": "user already registered please try with different email"
+                                "Message": user.message
                             }
                         ],
                         "errors": [],
                         "success": false
-                    })
-
+                    });
 
                 } else {
 
@@ -44,24 +49,26 @@ class register {
 
                 }
             } else {
+                const  pass =  new InvalidPassword();
+                User.error(pass.message);
 
-                user.error('Password Invalid')
-
-                res.status(403).json({
-                    "payload": [
-                        {
-                            "Message": "password is invalid"
-                        }
-                    ],
-                    "errors": [],
-                    "success": false
+               res.status(403).json({
+                   "payload": [
+                       {
+                           "Message": pass.message
+                       }
+                   ],
+                   "errors": [],
+                   "success": false
                 });
             }
 
 
         }
+
+                
         catch (e) {
-            user.error('Error Occurred While Register')
+            User.error('Error Occurred While Register')
     
         }
     }
