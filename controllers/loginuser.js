@@ -1,7 +1,9 @@
 
 const execute = require("../database/db");
 const { UserNotFound }= require("../Helpers/error");
+const { createToken } = require("../Helpers/jwt");
 const Userlogger = require("../helpers/logger");
+
 
 class Login {
     static async login(req, res , next) {
@@ -28,13 +30,16 @@ class Login {
     
             }
             else {
-    
+                const data = {useremail,password};
+                const token =  createToken(data);
+                console.log(token)
                 await execute(`SELECT * FROM users where useremail='${useremail}' and password='${password}'`);
     
                 res.status(200).json({
                     "payload": [
                         {
-                            "Message": "Login Sucssesful"
+                            "Message": "Login Sucssesful",
+                            "token" : token
                         }
                     ],
                     "errors": [],
