@@ -2,6 +2,9 @@ const winston = require("winston");
 const User = require("../helpers/log");
 const execute = require("../db/database");
 const { UserNotFound } = require("../helpers/error");
+const { createToken } = require("../helpers/jwt");
+
+
 
 
 
@@ -18,7 +21,7 @@ class Login {
             User.error('invalid details')
             const user =  new UserNotFound
                
-               Userlogger.error(user.message);
+               User.error(user.message);
     
                 res.status(409).json({
                     "payload": [
@@ -34,12 +37,16 @@ class Login {
         }
         else {
             await execute(`SELECT * FROM users where user_email='${user_email}' and Password='${password}'`)
-
+            const data = {user_email,password};
+                const token =  createToken(data);
+                console.log(token)
 
             res.status(200).json({
                 "payload": [
                     {
-                        "Message": "Login Sucssesful"
+                        "Message": "Login Sucssesful",
+                        "token" : token
+                    
                     }
                 ],
                 "errors": [],

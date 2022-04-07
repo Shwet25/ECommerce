@@ -2,12 +2,12 @@ const winston = require("winston");
 const User = require("../helpers/log");
 const execute = require("../db/database");
 const { PrimaryKeyViolation } = require("../helpers/error");
-
+const { verifyToken } = require("../helpers/jwt");
 class register { 
     static async register(req, res) {
  
         try {
-            let { user_id, user_email, password, userrole } = req.body;
+            let { user_email,  password, userrole,userid } = req.body;
 
             if ( password.length > 8) {
 
@@ -33,7 +33,7 @@ class register {
 
                 } else {
 
-                    await execute(`INSERT INTO users VALUES ('${user_id}','${user_email}','${password}','${userrole}')`)
+                    await execute(`INSERT INTO users VALUES ('${user_email}','${password}','${userrole}'.'${userid}')`)
 
                     res.status(200).json({
                         "payload": [
