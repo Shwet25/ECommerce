@@ -1,5 +1,6 @@
 const execute = require("../database/db");
 const { UserNotFound }= require("../Helpers/error");
+const { verifyToken } = require("../Helpers/jwt");
 const Userlogger = require('../Helpers/logger');
 
 class Forget {
@@ -31,6 +32,7 @@ class Forget {
 
 
             } else {
+                
 
                 const query1 = `update users set password='${newpassword}' WHERE useremail='${useremail}'`
 

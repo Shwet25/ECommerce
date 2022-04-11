@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 dotenv.config();
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 function createToken(data) {
- 
+
     return jwt.sign(data, jwtSecretKey, { expiresIn: '1hr' });
 
 }

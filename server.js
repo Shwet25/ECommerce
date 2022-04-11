@@ -1,17 +1,17 @@
 const express = require('express');
 const Usererror = require('./Helpers/error');
 const  routes = require('./routes/index');
-const path = require('path');
-const { data } = require('./Helpers/logger');
-const { format } = require('path');
-const { timeStamp } = require('console');
-const { isDate } = require('util/types');
-const PORT = 3001;
+const swaggerUi = require("swagger-ui-express");
+const swaggerDoc=require("./swagger.json")
+
+const PORT =  3001;
 const app = express();
 
 
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.use('/',routes);
 

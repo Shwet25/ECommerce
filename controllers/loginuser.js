@@ -32,7 +32,7 @@ class Login {
             else {
                 const data = {useremail,password};
                 const token =  createToken(data);
-                console.log(token)
+                
                 await execute(`SELECT * FROM users where useremail='${useremail}' and password='${password}'`);
     
                 res.status(200).json({

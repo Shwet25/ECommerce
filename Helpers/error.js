@@ -44,6 +44,15 @@ class ProductNotFound extends Error {
     }
 
 }
+class AdminNotFound extends Error {
+    constructor(message = "You Are Not An Admin") {
+        super(message);
+        this.isOprational = true;
 
-module.exports = { UserNotFound, PrimaryKeyViolation, InvalidPassword, ProductNotFound };
+        Error.captureStackTrace(this, this.constructor);
+    }
+}
+
+
+module.exports = { UserNotFound, PrimaryKeyViolation, InvalidPassword, ProductNotFound, AdminNotFound};
 
