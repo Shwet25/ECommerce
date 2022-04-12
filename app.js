@@ -18,5 +18,5 @@ app.use(express.urlencoded({extended : true}))
 app.use('/',routes)
 
 app.listen(PORT,()=>{
-    console.log(`Ecommerce api are listening at  : http://localhost:${PORT}`);
+    console.log(`Ecommerce api's are listening at  : http://localhost:${PORT}`);
 })
