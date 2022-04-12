@@ -1,0 +1,270 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Ecommerce",
+      "description": "",
+      "version": "0.1.9"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:2324/",
+        "description": "server 1"
+      }
+    ],
+    "paths": {
+      "/login": {
+        "post": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Login user",
+          "description": "Login page",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/definitions/login",
+                  "properties": {
+                    "user_email": {
+                      "description": "",
+                      "type": "string"
+                    },
+                    "password": {
+                      "description": "",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "successful"
+            },
+            "403": {
+              "description": "Header missing"
+            },
+            "404": {
+              "description": "version not found"
+            }
+          }
+        }
+      },
+      "/adminlogin": {
+        "post": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Admin Login Page",
+          "description": "Only admin can login here",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/definitions/adminlogin",
+                  "properties": {
+                    "user_email": {
+                      "description": "",
+                      "type": "string"
+                    },
+                    "password": {
+                      "description": "",
+                      "type": "string"
+                    },
+                    "userrole": {
+                      "description": "role shoud be admin",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "successful",
+              "schema": {
+                "$ref": "#/definitions/login"
+              }
+            },
+            "403": {
+              "description": "Header missing"
+            },
+            "404": {
+              "description": "version not found"
+            }
+          }
+        }
+      },
+      "/register": {
+        "post": {
+          "tags": [
+            "user"
+          ],
+          "summary": "User Registation api",
+          "description": "Registation page",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/definitions/register",
+                  "properties": {
+                    "userid": {
+                      "description": "",
+                      "type": "integer"
+                    },
+                    "user_email": {
+                      "description": "",
+                      "type": "string"
+                    },
+                    "password": {
+                      "description": "",
+                      "type": "string"
+                    },
+                    "userrole": {
+                      "description": "",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "successful"
+            },
+            "403": {
+              "description": "Header missing"
+            },
+            "404": {
+              "description": "version not found"
+            }
+          }
+        }
+      },
+      "/forget": {
+        "put": {
+          "tags": [
+            "user"
+          ],
+          "summary": "forget password api",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "description": "token to be passed as a header",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "$ref": "#/definitions/forget",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user_email": {
+                      "description": "regiter user emailid",
+                      "type": "string"
+                    },
+                    "newpassword": {
+                      "description": "Updated new password",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "ok"
+            },
+            "403": {
+              "description": "Header missing"
+            },
+            "404": {
+              "description": "version not found"
+            }
+          }
+        }
+      },
+      "/carousel": {
+        "get": {
+          "tags": [
+            "Product"
+          ],
+          "summary": "carousel product",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/carousel"
+              },
+              "403": {
+                "description": "Header missing"
+              },
+              "404": {
+                "description": "version not found"
+              }
+            }
+          }
+        }
+      },
+      "/newarrival": {
+        "get": {
+          "tags": [
+            "Product"
+          ],
+          "summary": "Get all product  which are updated 24 ago",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/newarrival"
+              },
+              "403": {
+                "description": "Header missing"
+              },
+              "404": {
+                "description": "version not found"
+              }
+            }
+          }
+        }
+      },
+      "/topselling": {
+        "get": {
+          "tags": [
+            "Product"
+          ],
+          "summary": "Get all product whose ratting >3.5 in system",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/topselling"
+              },
+              "403": {
+                "description": "Header missing"
+              },
+              "404": {
+                "description": "version not found"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
