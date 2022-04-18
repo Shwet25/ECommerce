@@ -3,7 +3,12 @@
 // IMPORTS ==================================================================================================
 const { execute } = require("../includes/database_connection");
 const { USERS } = require("../constants/tables.constants");
-const { ER_DATA_ALREADY_EXISTS } = require("../constants/errors.constants");
+const {
+	ER_DATA_ALREADY_EXISTS,
+	ER_DATA_NOT_FOUND,
+	ER_USER_BLOCKED,
+} = require("../constants/errors.constants");
+const { generateToken } = require("../helpers/jwt");
 
 // SERVICES ==================================================================================================
 /**
@@ -11,7 +16,9 @@ const { ER_DATA_ALREADY_EXISTS } = require("../constants/errors.constants");
  * @returns
  */
 const getAllUsers = async () => {
-	const data = await execute(`SELECT id, username, email FROM ${USERS}`);
+	const data = await execute(
+		`SELECT id, username, email FROM ${USERS} ORDER BY id ASC`,
+	);
 	return {
 		data: data.rows || data,
 		message: "All users listed.",
@@ -50,5 +57,44 @@ const addUser = async (body) => {
 	return response;
 };
 
+const userLogin = async (body) => {
+	const response = {
+		message: "User has been logged in.",
+	};
+	const { email, password } = body;
+
+	// Check user if exists.
+	let records = await execute(
+		`SELECT id, password, blocked FROM ${USERS} WHERE email='${email}'`,
+	);
+
+	// if records are found then proceed
+	if (records.rowCount === 1) {
+		const record = records.rows[0];
+
+		// Check if user is blocked
+		if (record.blocked) throw ER_USER_BLOCKED;
+
+		// Check password
+		if (record.password !== password) {
+			//**** ADD ENCRYPTION HERE LATER ON ****
+			throw ER_DATA_NOT_FOUND("user");
+		}
+
+		// Generate and update token.
+		const token = generateToken(record.id);
+		response.data = (
+			await execute(
+				`UPDATE ${USERS} SET token='${token}' WHERE id=${record.id} RETURNING id, username, email, token`,
+			)
+		).rows[0];
+
+		return response;
+	}
+
+	// else error
+	throw ER_DATA_NOT_FOUND("user");
+};
+
 // EXPORTS ==================================================================================================
-module.exports = { getAllUsers, addUser };
+module.exports = { getAllUsers, addUser, userLogin };

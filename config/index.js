@@ -11,6 +11,10 @@ const env = {
 	databaseConfig: {
 		url: process.env.DB_CONNECTION_STRING,
 	},
+	jwtConfig: {
+		jwtSecret: process.env.JWT_SECRET,
+		expiresIn: `${(parseInt(process.env.EXPIRES_IN) * 60).toString()}s`,
+	},
 };
 
 // EXPORTS ==================================================================================================

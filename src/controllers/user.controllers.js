@@ -28,7 +28,7 @@ const getAllUsers = async (req, res, next) => {
  */
 const addUser = async (req, res, next) => {
 	try {
-        // Validations
+		// Validations
 		if (!req.body.username) throw ER_FIELD_EMPTY("username");
 		if (!req.body.email) throw ER_FIELD_EMPTY("email");
 		if (!req.body.password) throw ER_FIELD_EMPTY("password");
@@ -40,8 +40,28 @@ const addUser = async (req, res, next) => {
 	}
 };
 
+/**
+ * Add new user - controller
+ * @param {object} req
+ * @param {object} res
+ * @param {object} next
+ */
+const userLogin = async (req, res, next) => {
+	try {
+		// Validations
+		if (!req.body.email) throw ER_FIELD_EMPTY("email");
+		if (!req.body.password) throw ER_FIELD_EMPTY("password");
+
+		const response = await userService.userLogin(req.body);
+		res.send(response);
+	} catch (error) {
+		next(error);
+	}
+};
+
 // EXPORTS ==================================================================================================
 module.exports = {
 	getAllUsers,
 	addUser,
+	userLogin,
 };
