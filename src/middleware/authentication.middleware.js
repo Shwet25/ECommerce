@@ -32,13 +32,7 @@ const authentication = async (req, res, next) => {
 		}
 
 		// If the code comes here then there is some issue in decoding token. Hence, user is not authenticated.
-		logger.error(ER_UNAUTHENTICATED_USER.code);
-		res.status(ER_UNAUTHENTICATED_USER.statusCode).send({
-			errorCode: ER_UNAUTHENTICATED_USER.code,
-			statusCode: ER_UNAUTHENTICATED_USER.statusCode,
-			message: ER_UNAUTHENTICATED_USER.message,
-			data: {},
-		});
+		throw ER_UNAUTHENTICATED_USER;
 	} catch (error) {
 		// If there is any error then user is not authenticated.
 		logger.error(ER_UNAUTHENTICATED_USER.code);
