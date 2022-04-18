@@ -1,1 +1,2 @@
-{"level":"error","message":"Password Invalid","timestamp":"2022-03-30 11:31:07"}
+{"level":"error","message":"ER_UNAUTHENTICATED_USER","timestamp":"2022-04-18 11:45:43"}
+{"level":"error","message":"ER_FIELD_EMPTY","timestamp":"2022-04-18 11:46:09"}

@@ -6,6 +6,7 @@
     "express-mung": "^0.5.1",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "winston": "^3.7.2"
   }
 }
