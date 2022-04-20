@@ -2,7 +2,7 @@
 
 // IMPORTS ==================================================================================================
 const { ER_UNAUTHENTICATED_USER } = require("../constants/errors.constants");
-const { execute } = require("../includes/database_connection");
+const Connection = require("../includes/database_connection");
 const { decodeToken } = require("../helpers/jwt");
 const { USERS } = require("../constants/tables.constants");
 const logger = require("../helpers/logger");
@@ -22,13 +22,22 @@ const authentication = async (req, res, next) => {
 
 		// If token is decoded then it will have id. Else it will throw error
 		if (dToken.id) {
-			const records = await execute(
+			// Creating connection
+			const con = new Connection();
+			await con.connect();
+			// Fetching user data
+			const records = await con.execute(
 				`SELECT id FROM ${USERS} WHERE token='${token}'`,
 			);
+			
+			// Checking if user exists
 			if (records.rowCount === 1) {
 				req._id = records.rows[0].id;
+				req._con = con;
 				return next();
 			}
+			// Releasing connection
+			con.release();
 		}
 
 		// If the code comes here then there is some issue in decoding token. Hence, user is not authenticated.

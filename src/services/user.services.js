@@ -1,7 +1,6 @@
 "use strict";
 
 // IMPORTS ==================================================================================================
-const { execute } = require("../includes/database_connection");
 const { USERS } = require("../constants/tables.constants");
 const {
 	ER_DATA_ALREADY_EXISTS,
@@ -13,10 +12,11 @@ const { generateToken } = require("../helpers/jwt");
 // SERVICES ==================================================================================================
 /**
  * List all users - Service
+ * @param {object} con
  * @returns
  */
-const getAllUsers = async () => {
-	const data = await execute(
+const getAllUsers = async (con) => {
+	const data = await con.execute(
 		`SELECT id, username, email FROM ${USERS} ORDER BY id ASC`,
 	);
 	return {
@@ -27,10 +27,11 @@ const getAllUsers = async () => {
 
 /**
  * Add new user - Service
+ * @param {object} con
  * @param {object} body
  * @returns
  */
-const addUser = async (body) => {
+const addUser = async (con, body) => {
 	const response = {
 		message: "All users listed.",
 	};
@@ -38,9 +39,10 @@ const addUser = async (body) => {
 	const { username, password, email } = body;
 
 	// Check for existing username or email
-	const check = await execute(
+	const check = await con.execute(
 		`SELECT email, username FROM ${USERS} WHERE email = '${email}' OR username = '${username}'`,
 	);
+
 	if (check.rowCount > 0) {
 		const checkData = check.rows[0];
 		if (checkData.username === username)
@@ -49,7 +51,7 @@ const addUser = async (body) => {
 	}
 
 	// Insert operation
-	const data = await execute(
+	const data = await con.execute(
 		`INSERT INTO ${USERS} (username, password, email) VALUES ('${username}', '${password}', '${email}') RETURNING id, username, email, blocked`,
 	);
 	response.data = data.rows || data;
@@ -57,14 +59,20 @@ const addUser = async (body) => {
 	return response;
 };
 
-const userLogin = async (body) => {
+/**
+ * User Login - service
+ * @param {object} con 
+ * @param {object} body 
+ * @returns 
+ */
+const userLogin = async (con, body) => {
 	const response = {
 		message: "User has been logged in.",
 	};
 	const { email, password } = body;
 
 	// Check user if exists.
-	let records = await execute(
+	let records = await con.execute(
 		`SELECT id, password, blocked FROM ${USERS} WHERE email='${email}'`,
 	);
 
@@ -84,7 +92,7 @@ const userLogin = async (body) => {
 		// Generate and update token.
 		const token = generateToken(record.id);
 		response.data = (
-			await execute(
+			await con.execute(
 				`UPDATE ${USERS} SET token='${token}' WHERE id=${record.id} RETURNING id, username, email, token`,
 			)
 		).rows[0];
@@ -96,5 +104,21 @@ const userLogin = async (body) => {
 	throw ER_DATA_NOT_FOUND("user");
 };
 
+/**
+ * Logout user - service
+ * @param {object} con
+ * @param {string} id
+ * @returns
+ */
+const userLogout = async (con, id) => {
+	const response = {
+		message: "User successfully logged out.",
+		data: {},
+	};
+
+	await con.execute(`UPDATE ${USERS} SET token='' WHERE id=${id}`);
+	return response;
+};
+
 // EXPORTS ==================================================================================================
-module.exports = { getAllUsers, addUser, userLogin };
+module.exports = { getAllUsers, addUser, userLogin, userLogout };
