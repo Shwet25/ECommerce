@@ -49,8 +49,12 @@ const addUser = async (con, body) => {
 	// Insert operation
 	const data = await con.execute(
 		`INSERT INTO ${USERS} 
-		(email, password, firstName${lastName ? ", lastName" : ""}${contact ? ", contact" : ""}) 
-		VALUES ('${email}', '${password}', '${firstName}'${lastName ? `, '${lastName}'`: ""}${contact ? `, '${contact}'`: ""}) 
+		(email, password, firstName${lastName ? ", lastName" : ""}${
+			contact ? ", contact" : ""
+		}) 
+		VALUES ('${email}', '${password}', '${firstName}'${
+			lastName ? `, '${lastName}'` : ""
+		}${contact ? `, '${contact}'` : ""}) 
 		RETURNING id, firstName, lastName, contact, email, blocked`,
 	);
 	response.data = data.rows || data;
@@ -122,5 +126,34 @@ const userLogout = async (con, id) => {
 	return response;
 };
 
+/**
+ * User Update Password - service
+ * @param {object} con
+ * @param {object} body
+ * @returns
+ */
+const userUpdatePassword = async (con, body) => {
+	const response = {
+		message: "Password successfully updated.",
+	};
+
+	response.data = await con.execute(`
+		UPDATE ${USERS}
+		SET password = '${body.password}', token = ''
+		WHERE email = '${body.email}'
+		RETURNING id, firstName, lastName, contact, email
+	`);
+
+	if (response.data.rowCount === 0) throw ER_DATA_NOT_FOUND("user");
+
+	return response;
+};
+
 // EXPORTS ==================================================================================================
-module.exports = { getAllUsers, addUser, userLogin, userLogout };
+module.exports = {
+	getAllUsers,
+	addUser,
+	userLogin,
+	userLogout,
+	userUpdatePassword,
+};

@@ -111,10 +111,37 @@ const userLogout = async (req, res, next) => {
 	}
 };
 
+/**
+ * User Update Password - controller
+ * @param {object} req
+ * @param {object} res
+ * @param {object} next
+ */
+ const userUpdatePassword = async (req, res, next) => {
+	const con = new Connection();
+	await con.connect();
+	await con.begin();
+
+	try {
+		const response = await userService.userUpdatePassword(con, req.body);
+
+		await con.commit();
+		con.release();
+
+		res.send(response);
+	} catch (error) {
+		await con.rollback();
+		con.release();
+
+		next(error);
+	}
+};
+
 // EXPORTS ==================================================================================================
 module.exports = {
 	getAllUsers,
 	addUser,
 	userLogin,
 	userLogout,
+	userUpdatePassword
 };

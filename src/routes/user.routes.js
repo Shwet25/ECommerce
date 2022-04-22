@@ -10,6 +10,7 @@ const router = new Router();
 // API ROUTES ===============================================================================================
 router.post("/register", userController.addUser);
 router.post("/login", userController.userLogin);
+router.put("/update-password", userController.userUpdatePassword);
 
 // All APIs written below needs to be authenticated with token.
 router.get("/get-all", authentication, userController.getAllUsers);
