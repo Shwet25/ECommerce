@@ -13,7 +13,7 @@ router.post("/login", userController.userLogin);
 
 // All APIs written below needs to be authenticated with token.
 router.get("/get-all", authentication, userController.getAllUsers);
-router.put("/logout", authentication, userController.userLogout);
+router.get("/logout", authentication, userController.userLogout);
 
 // EXPORTS ==================================================================================================
 module.exports = router;

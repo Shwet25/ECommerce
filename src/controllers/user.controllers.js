@@ -38,9 +38,9 @@ const addUser = async (req, res, next) => {
 
 	try {
 		// Validations
-		if (!req.body.username) throw ER_FIELD_EMPTY("username");
 		if (!req.body.email) throw ER_FIELD_EMPTY("email");
 		if (!req.body.password) throw ER_FIELD_EMPTY("password");
+		if (!req.body.firstName) throw ER_FIELD_EMPTY("firstName");
 
 		const response = await userService.addUser(con, req.body);
 
