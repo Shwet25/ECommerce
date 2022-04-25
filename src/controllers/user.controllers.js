@@ -110,12 +110,19 @@ const userLogout = async (req, res, next) => {
         next(error);
     }
 };
+
+/**
+ * Delete user - controller
+ * @param {object} req
+ * @param {object} res
+ * @param {object} next
+ */
 const deleteUser = async (req, res, next) => {
     const con = req._con;
     await con.begin();
 
     try {
-        const response = await userService.deleteUser(con, req.body);
+        const response = await userService.deleteUser(con, req.params.id);
 
         await con.commit();
         con.release();

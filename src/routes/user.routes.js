@@ -12,11 +12,10 @@ router.post("/register", userController.addUser);
 router.post("/login", userController.userLogin);
 router.put("/update-password", userController.userUpdatePassword);
 
-
 // All APIs written below needs to be authenticated with token.
 router.get("/get-all", authentication, userController.getAllUsers);
 router.get("/logout", authentication, userController.userLogout);
-router.delete("/delete",authentication,userController.deleteUser);
+router.delete("/delete/:id", authentication, userController.deleteUser);
 
 // EXPORTS ==================================================================================================
 module.exports = router;
