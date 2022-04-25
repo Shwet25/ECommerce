@@ -13,16 +13,16 @@ const Connection = require("../includes/database_connection");
  * @param {object} next
  */
 const getAllUsers = async (req, res, next) => {
-	const con = req._con;
+    const con = req._con;
 
-	try {
-		const response = await userService.getAllUsers(con);
-		con.release();
-		res.send(response);
-	} catch (error) {
-		con.release();
-		next(error);
-	}
+    try {
+        const response = await userService.getAllUsers(con);
+        con.release();
+        res.send(response);
+    } catch (error) {
+        con.release();
+        next(error);
+    }
 };
 
 /**
@@ -32,28 +32,28 @@ const getAllUsers = async (req, res, next) => {
  * @param {object} next
  */
 const addUser = async (req, res, next) => {
-	const con = new Connection();
-	await con.connect();
-	await con.begin();
+    const con = new Connection();
+    await con.connect();
+    await con.begin();
 
-	try {
-		// Validations
-		if (!req.body.email) throw ER_FIELD_EMPTY("email");
-		if (!req.body.password) throw ER_FIELD_EMPTY("password");
-		if (!req.body.firstName) throw ER_FIELD_EMPTY("firstName");
+    try {
+        // Validations
+        if (!req.body.email) throw ER_FIELD_EMPTY("email");
+        if (!req.body.password) throw ER_FIELD_EMPTY("password");
+        if (!req.body.firstName) throw ER_FIELD_EMPTY("firstName");
 
-		const response = await userService.addUser(con, req.body);
+        const response = await userService.addUser(con, req.body);
 
-		await con.commit();
-		con.release();
+        await con.commit();
+        con.release();
 
-		res.send(response);
-	} catch (error) {
-		await con.rollback();
-		con.release();
+        res.send(response);
+    } catch (error) {
+        await con.rollback();
+        con.release();
 
-		next(error);
-	}
+        next(error);
+    }
 };
 
 /**
@@ -63,27 +63,27 @@ const addUser = async (req, res, next) => {
  * @param {object} next
  */
 const userLogin = async (req, res, next) => {
-	const con = new Connection();
-	await con.connect();
-	await con.begin();
+    const con = new Connection();
+    await con.connect();
+    await con.begin();
 
-	try {
-		// Validations
-		if (!req.body.email) throw ER_FIELD_EMPTY("email");
-		if (!req.body.password) throw ER_FIELD_EMPTY("password");
+    try {
+        // Validations
+        if (!req.body.email) throw ER_FIELD_EMPTY("email");
+        if (!req.body.password) throw ER_FIELD_EMPTY("password");
 
-		const response = await userService.userLogin(con, req.body);
+        const response = await userService.userLogin(con, req.body);
 
-		await con.commit();
-		con.release();
+        await con.commit();
+        con.release();
 
-		res.send(response);
-	} catch (error) {
-		await con.rollback();
-		con.release();
+        res.send(response);
+    } catch (error) {
+        await con.rollback();
+        con.release();
 
-		next(error);
-	}
+        next(error);
+    }
 };
 
 /**
@@ -93,22 +93,40 @@ const userLogin = async (req, res, next) => {
  * @param {object} next
  */
 const userLogout = async (req, res, next) => {
-	const con = req._con;
-	await con.begin();
+    const con = req._con;
+    await con.begin();
 
-	try {
-		const response = await userService.userLogout(con, req._id);
+    try {
+        const response = await userService.userLogout(con, req._id);
 
-		await con.commit();
-		con.release();
+        await con.commit();
+        con.release();
 
-		res.send(response);
-	} catch (error) {
-		await con.rollback();
-		con.release();
+        res.send(response);
+    } catch (error) {
+        await con.rollback();
+        con.release();
 
-		next(error);
-	}
+        next(error);
+    }
+};
+const deleteUser = async (req, res, next) => {
+    const con = req._con;
+    await con.begin();
+
+    try {
+        const response = await userService.deleteUser(con, req.body);
+
+        await con.commit();
+        con.release();
+
+        res.send(response);
+    } catch (error) {
+        await con.rollback();
+        con.release();
+
+        next(error);
+    }
 };
 
 /**
@@ -117,31 +135,32 @@ const userLogout = async (req, res, next) => {
  * @param {object} res
  * @param {object} next
  */
- const userUpdatePassword = async (req, res, next) => {
-	const con = new Connection();
-	await con.connect();
-	await con.begin();
+const userUpdatePassword = async (req, res, next) => {
+    const con = new Connection();
+    await con.connect();
+    await con.begin();
 
-	try {
-		const response = await userService.userUpdatePassword(con, req.body);
+    try {
+        const response = await userService.userUpdatePassword(con, req.body);
 
-		await con.commit();
-		con.release();
+        await con.commit();
+        con.release();
 
-		res.send(response);
-	} catch (error) {
-		await con.rollback();
-		con.release();
+        res.send(response);
+    } catch (error) {
+        await con.rollback();
+        con.release();
 
-		next(error);
-	}
+        next(error);
+    }
 };
 
 // EXPORTS ==================================================================================================
 module.exports = {
-	getAllUsers,
-	addUser,
-	userLogin,
-	userLogout,
-	userUpdatePassword
+    getAllUsers,
+    addUser,
+    userLogin,
+    userLogout,
+    userUpdatePassword,
+    deleteUser,
 };
