@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e1ce96f4-d917-4569-afdf-056433756b80",
+		"_postman_id": "d5a686c0-a438-4c7b-8489-3976db694b9a",
 		"name": "E Commerce",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -200,15 +200,24 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"pm3@email.com\",\r\n    \"lastName\": \"Kurosaki\",\r\n    \"contact\": \"1234567530\",\r\n    \"firstName\": \"Ichigo\",\r\n    \"blocked\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{base_url}}/{{version}}/user/login",
+							"raw": "{{base_url}}/{{version}}/user/update",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"{{version}}",
 								"user",
-								"login"
+								"update"
 							]
 						}
 					},

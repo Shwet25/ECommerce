@@ -149,53 +149,74 @@ const userUpdatePassword = async (con, body) => {
 	return response;
 };
 
-
 /**
  * Update user - Service
  * @param {object} con
  * @param {object} body
  * @returns
  */
- const updateUser = async (con, body) => {
+const updateUser = async (con, body) => {
 	let response = {
 		message: "User Updated.",
 	};
 
-	let { firstName, lastName, contact, email } = body;
+	// Destructure body
+	const { firstName, lastName, contact, email, blocked } = body;
 
-	// Check for existing email
-	let find = await con.execute(`SELECT id,firstName, lastName, contact, email FROM ${USERS} WHERE email = '${email}'`);
-	console.log(find.rows[0].lastName); 
-	
+	// forming set variables and combining to string
+	let set = [];
+	if (firstName) set.push(`firstName = '${firstName}'`);
+	if (lastName) set.push(`lastName = '${lastName}'`);
+	if (contact) set.push(`contact = '${contact}'`);
+	if (blocked) set.push(`blocked = '${blocked}'`);
+	set = set.join(", ");
+
+	// Fire query
+	response.data = await con.execute(`
+		UPDATE ${USERS} 
+		SET ${set} 
+		WHERE email = '${email}'
+		RETURNING id, email, firstName, lastName, contact, blocked
+	`);
+
+	// Error of entered email was wrong
+	if (response.data.rowCount === 0) throw ER_DATA_NOT_FOUND("user");
+
+	// Finally return
+	if (response.data.rows) response.data = response.data.rows;
+	return response;
+
+	/* // Check for existing email
+	let find = await con.execute(
+		`SELECT id,firstName, lastName, contact, email FROM ${USERS} WHERE email = '${email}'`,
+	);
+
 	if (find.rowCount > 0) {
 		if (email == undefined || email == "" || email == null) {
 			email = find.rows[0].email;
 		}
 		if (!firstName) {
 			firstName = find.rows[0].firstName;
-		};
+		}
 		if (!lastName) {
 			find.rows[0].lastName;
-		};	
+		}
 		if (contact == undefined || contact == "" || contact == null) {
 			contact = find.rows[0].contact;
-		};
+		}
 
 		// Update operation
 		let data = await con.execute(
 			`update ${USERS} set email='${email}', firstName='${firstName}',lastName='${lastName}',contact='${contact}' 
                                   WHERE email='${email}' RETURNING id, firstName, lastName, contact, email, blocked`,
-
 		);
-		
+
 		response.data = data.rows || data;
 
 		return response;
-	}
-	else {
+	} else {
 		throw ER_DATA_NOT_FOUND("user");
-
-	};
+	} */
 };
 
 /**
@@ -209,7 +230,6 @@ const deleteUser = async (con, id) => {
 		message: "User delete successfully.",
 		data: {},
 	};
-;
 	const data = await con.execute(
 		`DELETE FROM ${USERS} WHERE id=${id} RETURNING id`,
 	);
@@ -227,5 +247,5 @@ module.exports = {
 	userLogout,
 	userUpdatePassword,
 	deleteUser,
-	updateUser
+	updateUser,
 };

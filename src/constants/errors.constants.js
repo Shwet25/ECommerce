@@ -25,5 +25,6 @@ exports.ER_UNAUTHENTICATED_USER = makeError("ER_UNAUTHENTICATED_USER", "This api
 
 // TYPE METHODS
 exports.ER_FIELD_EMPTY = (field) => makeError("ER_FIELD_EMPTY", `"${field}" field cannot be empty.`, 406);
+exports.ER_MISSING_FIELDS = (fields) => makeError("ER_MISSING_FIELDS", `At least one of the following fields, "${fields}" are required.`, 406);
 exports.ER_DATA_ALREADY_EXISTS = (field) => makeError("ER_DATA_ALREADY_EXISTS", `This ${field} already exists with us.`, 406);
 exports.ER_DATA_NOT_FOUND = (entity) => makeError("ER_DATA_NOT_FOUND", `This ${entity} does not exist with us.`, 401);
