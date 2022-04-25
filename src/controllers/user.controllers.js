@@ -137,6 +137,32 @@ const deleteUser = async (req, res, next) => {
 };
 
 /**
+ * Add new user - controller
+ * @param {object} req
+ * @param {object} res
+ * @param {object} next
+ */
+ const updateUser = async (req, res, next) => {
+	const con = new Connection();
+	await con.connect();
+	await con.begin();
+
+	try {
+		let response = await userService.updateUser(con, req.body);
+
+		await con.commit();
+		con.release();
+
+		res.send(response);
+	} catch (error) {
+		await con.rollback();
+		con.release();
+console.log(error)
+		next(error);
+	}
+};
+
+/**
  * User Update Password - controller
  * @param {object} req
  * @param {object} res
@@ -170,4 +196,5 @@ module.exports = {
     userLogout,
     userUpdatePassword,
     deleteUser,
+    updateUser
 };

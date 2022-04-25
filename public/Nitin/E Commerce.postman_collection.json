@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "eb8a0bd5-380c-40a6-be3a-e1a964d3acfa",
+		"_postman_id": "e1ce96f4-d917-4569-afdf-056433756b80",
 		"name": "E Commerce",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -161,6 +161,54 @@
 								"{{version}}",
 								"user",
 								"update-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/{{version}}/user/delete/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{version}}",
+								"user",
+								"delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/{{version}}/user/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{version}}",
+								"user",
+								"login"
 							]
 						}
 					},

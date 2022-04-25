@@ -149,6 +149,55 @@ const userUpdatePassword = async (con, body) => {
 	return response;
 };
 
+
+/**
+ * Update user - Service
+ * @param {object} con
+ * @param {object} body
+ * @returns
+ */
+ const updateUser = async (con, body) => {
+	let response = {
+		message: "User Updated.",
+	};
+
+	let { firstName, lastName, contact, email } = body;
+
+	// Check for existing email
+	let find = await con.execute(`SELECT id,firstName, lastName, contact, email FROM ${USERS} WHERE email = '${email}'`);
+	console.log(find.rows[0].lastName); 
+	
+	if (find.rowCount > 0) {
+		if (email == undefined || email == "" || email == null) {
+			email = find.rows[0].email;
+		}
+		if (!firstName) {
+			firstName = find.rows[0].firstName;
+		};
+		if (!lastName) {
+			find.rows[0].lastName;
+		};	
+		if (contact == undefined || contact == "" || contact == null) {
+			contact = find.rows[0].contact;
+		};
+
+		// Update operation
+		let data = await con.execute(
+			`update ${USERS} set email='${email}', firstName='${firstName}',lastName='${lastName}',contact='${contact}' 
+                                  WHERE email='${email}' RETURNING id, firstName, lastName, contact, email, blocked`,
+
+		);
+		
+		response.data = data.rows || data;
+
+		return response;
+	}
+	else {
+		throw ER_DATA_NOT_FOUND("user");
+
+	};
+};
+
 /**
  * Delete user - service
  * @param {object} con
@@ -178,4 +227,5 @@ module.exports = {
 	userLogout,
 	userUpdatePassword,
 	deleteUser,
+	updateUser
 };
