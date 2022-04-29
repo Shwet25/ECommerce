@@ -196,6 +196,30 @@ const userUpdatePassword = async (req, res, next) => {
 		next(error);
 	}
 };
+/**
+ * Delete user - controller
+ * @param {object} req
+ * @param {object} res
+ * @param {object} next
+ */
+ const imageUpload = async (req, res, next) => {
+	const con = req._con;
+	await con.begin();
+
+	try {
+		const response = await userService.imageUpload(con, req.params.id);
+
+		await con.commit();
+		con.release();
+
+		res.send(response);
+	} catch (error) {
+		await con.rollback();
+		con.release();
+
+		next(error);
+	}
+};
 
 // EXPORTS ==================================================================================================
 module.exports = {
@@ -206,4 +230,5 @@ module.exports = {
 	userUpdatePassword,
 	deleteUser,
 	updateUser,
+	imageUpload
 };

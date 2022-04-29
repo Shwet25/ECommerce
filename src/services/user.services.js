@@ -207,6 +207,27 @@ const deleteUser = async (con, id) => {
 	return response;
 };
 
+/**
+ * Delete user - service
+ * @param {object} con
+ * @param {string} id
+ * @returns
+ */
+const imageUpload = async (con, id) => {
+	const response = {
+		message: "Image Updated successfully.",
+		data: {},
+	};
+	const image = req.file
+	const data = await con.execute(
+		`INSERT INTO ${USERS}(image)values('${image}') WHERE id=${id} RETURNING id image`,
+	);
+
+	response.data = data.rows || data;
+
+	return response;
+};
+
 // EXPORTS ==================================================================================================
 module.exports = {
 	getAllUsers,
@@ -216,4 +237,5 @@ module.exports = {
 	userUpdatePassword,
 	deleteUser,
 	updateUser,
+	imageUpload
 };
