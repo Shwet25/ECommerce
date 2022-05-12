@@ -24,7 +24,7 @@
             "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
-                "$ref": "#/definitions/login",                
+                "$ref": "#/definitions/login",
                 "properties": {
                   "useremail": {
                     "description": "",
@@ -64,7 +64,7 @@
             "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
-                "$ref": "#/definitions/adminlogin",                
+                "$ref": "#/definitions/adminlogin",
                 "properties": {
                   "useremail": {
                     "description": "",
@@ -111,7 +111,7 @@
             "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
-                "$ref": "#/definitions/register",                
+                "$ref": "#/definitions/register",
                 "properties": {
                   "userid": {
                     "description": "",
@@ -134,7 +134,6 @@
             }
           }
         },
-       
         "responses": {
           "200": {
             "description": "successful"
@@ -166,28 +165,28 @@
               "items": {
                 "type": "string"
               }
-            }            
-          }         
-          ],
-          "requestBody": {
-            "content": {
-              "application/x-www-form-urlencoded": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "useremail": {
-                      "description": "regiter user emailid",
-                      "type": "string"
-                    },
-                    "newpassword": {
-                      "description": "Updated new password",
-                      "type": "string"
-                    }
-                  }                  
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "useremail": {
+                    "description": "regiter user emailid",
+                    "type": "string"
+                  },
+                  "newpassword": {
+                    "description": "Updated new password",
+                    "type": "string"
+                  }
                 }
               }
             }
-          },
+          }
+        },
         "responses": {
           "200": {
             "description": "ok"

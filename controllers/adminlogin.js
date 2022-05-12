@@ -46,7 +46,7 @@ class Admin {
                 else{
                     const admin = new AdminNotFound;
                     Userlogger.error(admin.message);
-                    res.status(409).json({
+                    res.status(400).json({
                         "payload": [
                             {
                                 "Message": admin.message
